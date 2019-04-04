@@ -1,13 +1,19 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import registerIPC from '../ipc/client';
+
+import configureStore from './store/configureStore';
+import PageContainer from './containers/PageContainer';
 
 registerIPC();
 
+const store = configureStore();
+
 class App extends React.Component {
     render() {
-        return <div>A proof that React is working!</div>
+        return <PageContainer />;
     }
 }
 
-ReactDOM.render(<App />, document.getElementById('App'));
+ReactDOM.render(<Provider store={store}><App /></Provider>, document.getElementById('App'));
