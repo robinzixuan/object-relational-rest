@@ -7,7 +7,6 @@ import HomePage from './HomePage';
 class PageContainer extends React.Component {
 
     render() {
-
         const {
             state,
             changePage
@@ -23,11 +22,11 @@ class PageContainer extends React.Component {
 
         return (
             <div>
-                <Navbar>
+                {/* <Navbar>
                     <Navbar.Group align={Alignment.LEFT}>
                         <Navbar.Heading>Object Relational REST</Navbar.Heading>
                     </Navbar.Group>
-                </Navbar>
+                </Navbar> */}
 
                 { page }
             </div>

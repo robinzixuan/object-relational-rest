@@ -57,7 +57,8 @@
     "redux-actions": "^2.6.5",
     "redux-promise": "^0.6.0",
     "redux-thunk": "^2.3.0",
-    "reselect": "^4.0.0"
+    "reselect": "^4.0.0",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "babel-plugin-transform-async-to-generator": "^6.24.1",

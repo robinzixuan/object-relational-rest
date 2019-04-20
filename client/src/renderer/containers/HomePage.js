@@ -1,6 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { uiActionCreators } from '../ducks/ui';
+import { actionCreators as uiActionCreator } from '../ducks/ui';
 
 class HomePage extends React.Component {
 
@@ -24,7 +24,7 @@ const mapStateToProps = (state) => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-    changePage: (pageName) => dispatch(uiActionCreators.changePage(pageName))
+    changePage: (pageName) => dispatch(uiActionCreator.changePage(pageName))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(HomePage);

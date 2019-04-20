@@ -19,6 +19,8 @@ const createWindow = () => {
     height: 600,
   });
 
+  mainWindow.setMenu(null);
+
   registerIPC(mainWindow);
 
   // and load the index.html of the app.
