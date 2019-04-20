@@ -20,7 +20,8 @@ const generateFieldID = () => {
 * Action Creators and Reducers
 */
 export const actionCreators = createActions({
-    UPDATE_PROJECT_NAME: undefined,
+    LOAD_SAVE: savedState => savedState,
+    UPDATE_PROJECT_NAME: newName => newName,
     ADD_CLASS: undefined,
     DELETE_CLASS: class_id => class_id,
     UPDATE_CLASS_NAME: (class_id, newName) => ({
@@ -46,6 +47,7 @@ export const actionCreators = createActions({
 });
 
 const reducer = handleActions({
+    LOAD_SAVE: (_, action) => action.payload,
     UPDATE_PROJECT_NAME: (state, action) => ({
         ...state,
         projectName: action.payload
@@ -56,6 +58,7 @@ const reducer = handleActions({
             id: generateFieldID(),
             className: 'MyObject',
             endpointName: 'myobjects',
+            attributes: [],
         }]
     }),
     DELETE_CLASS: (state, action) => ({

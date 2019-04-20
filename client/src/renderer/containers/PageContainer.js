@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { Navbar, Alignment } from '@blueprintjs/core';
 import { uiActionCreators } from '../ducks/ui';
 import HomePage from './HomePage';
+import ModelEditorPage from './ModelEditorPage';
 
 class PageContainer extends React.Component {
 
@@ -15,7 +16,7 @@ class PageContainer extends React.Component {
         let page = null;
 
         if (state.ui.page === 'ModelEditorPage') {
-            // TODO: create ModelEditorPage
+            page = <ModelEditorPage />
         } else {
             page = <HomePage />
         }

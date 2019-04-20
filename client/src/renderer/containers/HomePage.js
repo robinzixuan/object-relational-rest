@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { actionCreators as uiActionCreator } from '../ducks/ui';
+import { Button } from '@blueprintjs/core';
 
 class HomePage extends React.Component {
 
@@ -14,6 +15,14 @@ class HomePage extends React.Component {
         return (
             <div>
                 HomePage
+
+                <Button
+                    onClick={() => {
+                        changePage('ModelEditorPage');
+                    }}
+                >
+                    New Project
+                </Button>
             </div>
         );
     }
