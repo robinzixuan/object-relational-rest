@@ -2,7 +2,8 @@ import { app, dialog, ipcMain, shell } from 'electron';
 import endpoints from './endpoints';
 import { EXAMPLE_PROJECT_SCHEMA } from './constants';
 
-const fs = require('fs');
+const path = require('path');
+const fs = require('fs-extra');
 
 export default function registerIPC(window) {
     // Helper function that sends a string message to rendering process
@@ -40,12 +41,45 @@ export default function registerIPC(window) {
     })
 
     ipcMain.on(endpoints.CLIENT_REQUEST_GENERATE_CODE, (event, schemaJSON) => {
-        
+        // select base template
+        const chosenBaseTemplateDirectoryArr = dialog.showOpenDialog({
+            title: 'Select Base Template',
+            properties: ['openDirectory']
+        });
+
+        if (!(chosenBaseTemplateDirectoryArr && chosenBaseTemplateDirectoryArr.length > 0)) {
+            return;
+        }
+        const chosenBaseTemplateDirectoryPath = chosenBaseTemplateDirectoryArr[0];
+
+        // select directory to save the generated project
+        const chosenTargetDirectoryArr = dialog.showOpenDialog({
+            title: 'Select Directory to Save the Generated Project',
+            properties: ['openDirectory']
+        });
+
+        if (!(chosenTargetDirectoryArr && chosenTargetDirectoryArr.length > 0)) {
+            return;
+        }
+        const chosenTargetDirectoryPath = chosenTargetDirectoryArr[0];
+
+        // make a new directory with the name from schema.projectName
+        const generatedProjectDirectoryPath = path.join(chosenTargetDirectoryPath, schemaJSON.projectName);
+
+        try {
+            fs.copySync(chosenBaseTemplateDirectoryPath, generatedProjectDirectoryPath)
+        } catch (err) {
+            console.error(err);
+        }
+
+        const generatedPythonFilePath = path.join(generatedProjectDirectoryPath, 'api', 'generated.py');
+        fs.writeFileSync(generatedPythonFilePath, generateCode(schemaJSON));
+
         window.webContents.send(endpoints.SERVER_RESPONSE_GENERATE_CODE);
     })
 }
 
-// Helper function that get the data from constants.js
+// Helper function that generates code in "generated.py". Returns string.
 function generateCode(schema) {
     var header = `from django.db import models
 from rest_framework import serializers, viewsets
@@ -85,12 +119,5 @@ from rest_framework.documentation import include_docs_urls
         path('', include(router.urls)),
         url(r'^docs/', include_docs_urls(title='${projectName}')),
 ]`);
-    return code;
+    return code.join("");
 }
-
-function writeFile(code) {
-    var str = code.join("");
-    fs.writeFileSync('/Users/luohaozheng/desktop/output.py', str);
-}
-
-// writeFile(generateCode(EXAMPLE_PROJECT_SCHEMA));
