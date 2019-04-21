@@ -1,6 +1,5 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Navbar, Alignment } from '@blueprintjs/core';
 import { uiActionCreators } from '../ducks/ui';
 import HomePage from './HomePage';
 import ModelEditorPage from './ModelEditorPage';
@@ -23,12 +22,6 @@ class PageContainer extends React.Component {
 
         return (
             <div>
-                {/* <Navbar>
-                    <Navbar.Group align={Alignment.LEFT}>
-                        <Navbar.Heading>Object Relational REST</Navbar.Heading>
-                    </Navbar.Group>
-                </Navbar> */}
-
                 { page }
             </div>
         );

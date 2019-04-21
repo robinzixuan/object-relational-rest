@@ -1,9 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { FormGroup, InputGroup, Button } from '@blueprintjs/core';
+import { FormGroup, InputGroup, Button, Navbar, Alignment } from '@blueprintjs/core';
 import Autosuggest from 'react-autosuggest';
 import { actionCreators as modelEditorActionCreators } from '../ducks/modelEditor';
 import { djangoAttributeTypes } from '../constants/attributeTypes';
+import { requestSaveSchema, requestGenerateCode } from '../../ipc/client';
 
 class ModelEditorPage extends React.Component {
 
@@ -23,7 +24,31 @@ class ModelEditorPage extends React.Component {
 
         return (
             <div>
-                <h1>Schema Editor</h1>
+                <Navbar>
+                    <Navbar.Group align={Alignment.LEFT}>
+                        <Navbar.Heading>Schema Editor</Navbar.Heading>
+                    </Navbar.Group>
+                    <Navbar.Group align={Alignment.RIGHT}>
+                        <Button
+                            minimal
+                            icon="floppy-disk"
+                            onClick={() => {
+                                requestSaveSchema(state.modelEditor);
+                            }}
+                        >
+                            Save Schema
+                        </Button>
+                        <Button
+                            minimal
+                            icon="code"
+                            onClick={() => {
+                                requestGenerateCode(state.modelEditor);
+                            }}
+                        >
+                            Generate Code
+                        </Button>
+                    </Navbar.Group>
+                </Navbar>
                 <FormGroup label="Project Name" labelInfo={"(required)"}>
                     <InputGroup value={state.modelEditor.projectName} onChange={(event) => updateProjectName(event.target.value)} />
                 </FormGroup>

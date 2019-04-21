@@ -10,6 +10,25 @@ export default function registerIPC(window) {
     function sendNotificationToClient(message) {
         window.webContents.send(endpoints.SERVER_SEND_NOTIFICATION, message);
     }
+
+    ipcMain.on(endpoints.CLIENT_REQUEST_SAVE_SCHEMA, (event, schemaString) => {
+        dialog.showSaveDialog({
+            filters: [
+                { name: 'Schema File', extensions: ['schema'] }
+            ]
+        }, (filePath) => {
+            if (filePath) {
+                fs.writeFile(filePath, schemaString, () => {
+                    window.webContents.send(endpoints.SERVER_RESPONSE_SAVE_SCHEMA, filePath);
+                })
+            }
+        })
+    })
+
+    ipcMain.on(endpoints.CLIENT_REQUEST_GENERATE_CODE, (event, schemaJSON) => {
+        
+        window.webContents.send(endpoints.SERVER_RESPONSE_GENERATE_CODE);
+    })
 }
 
 // Helper function that get the data from constants.js
