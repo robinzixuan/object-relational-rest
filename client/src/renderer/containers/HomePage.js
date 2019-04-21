@@ -2,6 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { actionCreators as uiActionCreator } from '../ducks/ui';
 import { Button } from '@blueprintjs/core';
+import { requestLoadSchema } from '../../ipc/client';
 
 class HomePage extends React.Component {
 
@@ -13,16 +14,25 @@ class HomePage extends React.Component {
         } = this.props;
 
         return (
-            <div>
-                HomePage
-
-                <Button
-                    onClick={() => {
-                        changePage('ModelEditorPage');
-                    }}
-                >
-                    New Project
-                </Button>
+            <div className="app-homepage">
+                <div className="app-homepage__center">
+                    <Button
+                        icon="add"
+                        onClick={() => {
+                            changePage('ModelEditorPage');
+                        }}
+                    >
+                        New Project
+                    </Button>
+                    <Button
+                        icon="edit"
+                        onClick={() => {
+                            requestLoadSchema();
+                        }}
+                    >
+                        Open Project
+                    </Button>
+                </div>
             </div>
         );
     }

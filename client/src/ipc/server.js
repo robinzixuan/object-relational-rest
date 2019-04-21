@@ -25,6 +25,20 @@ export default function registerIPC(window) {
         })
     })
 
+    ipcMain.on(endpoints.CLIENT_REQUEST_LOAD_SCHEMA, (event) => {
+        dialog.showOpenDialog({
+            filters: [
+                { name: 'Schema File', extensions: ['schema'] }
+            ]
+        }, (filePaths) => {
+            if (filePaths && filePaths.length > 0) {
+                fs.readFile(filePaths[0], (err, data) => {
+                    window.webContents.send(endpoints.SERVER_RESPONSE_LOAD_SCHEMA, JSON.parse(data));
+                })
+            }
+        })
+    })
+
     ipcMain.on(endpoints.CLIENT_REQUEST_GENERATE_CODE, (event, schemaJSON) => {
         
         window.webContents.send(endpoints.SERVER_RESPONSE_GENERATE_CODE);

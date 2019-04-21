@@ -24,9 +24,20 @@ class ModelEditorPage extends React.Component {
 
         return (
             <div>
-                <Navbar>
+                <Navbar fixedToTop>
                     <Navbar.Group align={Alignment.LEFT}>
-                        <Navbar.Heading>Schema Editor</Navbar.Heading>
+                        <Navbar.Heading>Project Editor</Navbar.Heading>
+                        <Navbar.Divider />
+                        <Button
+                            intent="success"
+                            minimal
+                            icon="add"
+                            onClick={() => {
+                                addClass();
+                            }}
+                        >
+                            Add Class
+                        </Button>
                     </Navbar.Group>
                     <Navbar.Group align={Alignment.RIGHT}>
                         <Button
@@ -49,19 +60,12 @@ class ModelEditorPage extends React.Component {
                         </Button>
                     </Navbar.Group>
                 </Navbar>
-                <FormGroup label="Project Name" labelInfo={"(required)"}>
-                    <InputGroup value={state.modelEditor.projectName} onChange={(event) => updateProjectName(event.target.value)} />
-                </FormGroup>
 
-                <Button
-                    intent="success"
-                    icon="add"
-                    onClick={() => {
-                        addClass();
-                    }}
-                >
-                    Add Class
-                </Button>
+                <div style={{ marginTop: '100px', marginLeft: '30px', marginRight: '30px', marginBottom: '30px' }}>
+                    <FormGroup label="Project Name" labelInfo={"(required)"}>
+                        <InputGroup value={state.modelEditor.projectName} onChange={(event) => updateProjectName(event.target.value)} />
+                    </FormGroup>
+                </div>
 
                 {
                     state.modelEditor.classes.map(cls => {
