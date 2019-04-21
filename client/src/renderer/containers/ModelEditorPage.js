@@ -1,7 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { actionCreators as modelEditorActionCreators } from '../ducks/modelEditor';
 import { FormGroup, InputGroup, Button } from '@blueprintjs/core';
+import Autosuggest from 'react-autosuggest';
+import { actionCreators as modelEditorActionCreators } from '../ducks/modelEditor';
+import { djangoAttributeTypes } from '../constants/attributeTypes';
 
 class ModelEditorPage extends React.Component {
 
@@ -27,6 +29,8 @@ class ModelEditorPage extends React.Component {
                 </FormGroup>
 
                 <Button
+                    intent="success"
+                    icon="add"
                     onClick={() => {
                         addClass();
                     }}
@@ -40,6 +44,8 @@ class ModelEditorPage extends React.Component {
                         return (
                             <div className="app-class-form" key={cls.id}>
                                 <Button
+                                    intent="primary"
+                                    icon="add"
                                     onClick={() => {
                                         addAttribute(cls.id);
                                     }}
@@ -47,16 +53,18 @@ class ModelEditorPage extends React.Component {
                                     Add Attribute
                                 </Button>
                                 <Button
+                                    intent="danger"
+                                    icon="delete"
                                     onClick={() => {
                                         deleteClass(cls.id);
                                     }}
                                 >
                                     Delete Class
                                 </Button>
-                                <FormGroup label="Class Name" labelInfo={"(required)"}>
+                                <FormGroup label="Class Name" labelInfo={"(class name used in generated code, preferably starting with Uppercase)"}>
                                     <InputGroup value={cls.className} onChange={(event) => updateClassName(cls.id, event.target.value)} />
                                 </FormGroup>
-                                <FormGroup label="Endpoint Name" labelInfo={"(required)"}>
+                                <FormGroup label="Endpoint Name" labelInfo={"(API endpoint URL, preferably lowercase plural noun)"}>
                                     <InputGroup value={cls.endpointName} onChange={(event) => updateEndpointName(cls.id, event.target.value)} />
                                 </FormGroup>
                                 {
@@ -64,17 +72,35 @@ class ModelEditorPage extends React.Component {
                                         return (
                                             <div className="app-attribute-form" key={attr.id}>
                                                 <Button
+                                                    intent="danger"
+                                                    icon="delete"
                                                     onClick={() => {
                                                         deleteAttribute(attr.id);
                                                     }}
                                                 >
                                                     Delete Attribute
                                                 </Button>
-                                                <FormGroup label="Name" labelInfo={"(required)"}>
+                                                <FormGroup label="Name" labelInfo={"(preferably snake_case)"}>
                                                     <InputGroup value={attr.name} onChange={(event) => updateAttributeName(attr.id, event.target.value)} />
                                                 </FormGroup>
-                                                <FormGroup label="Type" labelInfo={"(required)"}>
-                                                    <InputGroup value={attr.type} onChange={(event) => updateAttributeType(attr.id, event.target.value)} />
+                                                <FormGroup label="Type" labelInfo={"(See templates, can be any legal Django field types)"}>
+                                                    <Autosuggest
+                                                        suggestions={djangoAttributeTypes}
+                                                        onSuggestionsFetchRequested={() => null}
+                                                        onSuggestionsClearRequested={() => null}
+                                                        getSuggestionValue={(suggestion) => suggestion.value}
+                                                        renderSuggestion={(suggestion) => (
+                                                            <div>{suggestion.value}<br /><small>{suggestion.description}</small></div>
+                                                        )}
+                                                        shouldRenderSuggestions={() => true}
+                                                        inputProps={{
+                                                            placeholder: 'Click to see templates',
+                                                            value: attr.type,
+                                                            onChange: (_, { newValue }) => {
+                                                                updateAttributeType(attr.id, newValue);
+                                                            }
+                                                        }}
+                                                    />
                                                 </FormGroup>
                                             </div>
                                         );

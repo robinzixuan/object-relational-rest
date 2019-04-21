@@ -4,10 +4,6 @@ export const djangoAttributeTypes = [
         value: 'CharField(max_length=100, blank=True)'
     },
     {
-        description: 'String of Variable Length <= 100, can not be blank',
-        value: 'CharField(max_length=100, blank=False)'
-    },
-    {
         description: 'Integer',
         value: 'IntegerField()'
     },

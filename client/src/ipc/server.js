@@ -60,4 +60,4 @@ function writeFile(code) {
     fs.writeFileSync('/Users/luohaozheng/desktop/output.py', str);
 }
 
-writeFile(generateCode(EXAMPLE_PROJECT_SCHEMA));
+// writeFile(generateCode(EXAMPLE_PROJECT_SCHEMA));
