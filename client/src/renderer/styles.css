@@ -1,3 +1,24 @@
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
 .react-autosuggest__container {
     position: relative;
 }
@@ -72,4 +93,27 @@
     padding-right: 30px;
     border-radius: 15px;
     background-color: aliceblue
+}
+
+.app-homepage {
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    height: 100vh;
+    padding-top: 35vh;
+    background-image: linear-gradient(to bottom, #367ee9, #5562bf, #5b4795, #542f6e, #461a4a);
+}
+
+.app-homepage__center {
+    width: 400px;
+    height: 200px;
+    background: white;
+    border-radius: 35px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.app-homepage__center__button {
+    display: block;
+    width: 400px;
+    height: 100px;
 }

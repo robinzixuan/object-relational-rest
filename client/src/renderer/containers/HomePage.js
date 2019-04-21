@@ -17,6 +17,9 @@ class HomePage extends React.Component {
             <div className="app-homepage">
                 <div className="app-homepage__center">
                     <Button
+                        large
+                        minimal
+                        className="app-homepage__center__button"
                         icon="add"
                         onClick={() => {
                             changePage('ModelEditorPage');
@@ -25,6 +28,9 @@ class HomePage extends React.Component {
                         New Project
                     </Button>
                     <Button
+                        large
+                        minimal
+                        className="app-homepage__center__button"
                         icon="edit"
                         onClick={() => {
                             requestLoadSchema();
