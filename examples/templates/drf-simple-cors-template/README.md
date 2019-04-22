@@ -1,5 +1,7 @@
 # YOUR PROJECT NAME
 
+> This project is generated from the `drf-simple-cors-template`. This is suitable for development only, and needs additional steps to ensure secure production deployment.
+
 ## Run
 
 Ensure `docker` and `docker-compose` have been installed.

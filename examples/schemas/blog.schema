@@ -1,0 +1,51 @@
+{
+  "projectName": "ORR-Blog",
+  "classes": [
+    {
+      "id": "f8a69348-0bb5-4f9c-aaee-531a18513a34",
+      "className": "Post",
+      "endpointName": "posts",
+      "attributes": [
+        {
+          "id": "1cf06ca1-e35f-424e-a10a-5d659cbf5096",
+          "name": "content",
+          "type": "TextField()"
+        },
+        {
+          "id": "e7d3b49e-0957-4277-ba02-3931ccdb5a30",
+          "name": "author",
+          "type": "ForeignKey(Author, on_delete=models.CASCADE)"
+        },
+        {
+          "id": "f047ea92-2a0a-48ac-abd0-8a6886f40995",
+          "name": "category",
+          "type": "ForeignKey(Category, on_delete=models.CASCADE)"
+        }
+      ]
+    },
+    {
+      "id": "38de2303-d16d-4899-b97c-8d50761872f2",
+      "className": "Author",
+      "endpointName": "authors",
+      "attributes": [
+        {
+          "id": "72c6f4ed-44b2-458d-a87b-f5ed6db0f28c",
+          "name": "name",
+          "type": "CharField(max_length=100, blank=False, null=False)"
+        }
+      ]
+    },
+    {
+      "id": "3d2e18f6-7e96-4cf1-b6d9-117b204dc03e",
+      "className": "category",
+      "endpointName": "categories",
+      "attributes": [
+        {
+          "id": "8170307e-de7b-42d8-b2df-11b9f60cf9f0",
+          "name": "name",
+          "type": "CharField(max_length=100, blank=False, null=False)"
+        }
+      ]
+    }
+  ]
+}
